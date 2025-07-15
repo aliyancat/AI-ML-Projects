@@ -1,5 +1,6 @@
 import pandas as pd
 import numpy as np
+import joblib
 from sklearn.datasets import load_iris
 from sklearn.preprocessing import StandardScaler
 from sklearn.model_selection import train_test_split
@@ -33,3 +34,12 @@ for i in range(5):
     actual_name = iris.target_names[y_test[i]]
     predicted_name = iris.target_names[predictions[i]]
     print(f"Flower {i+1}. Actual {actual_name}. Predicted = {predicted_name}.")
+
+joblib.dump(pipeline,'flower_model.pkl')
+print("Model saved as flower_model.pkl")
+
+loaded_pipeline = joblib.load('flower_model.pkl')
+print("Model loaded succesfully")
+
+loaded_accuracy = loaded_pipeline.score(x_test,y_test)
+print(f"Loaded model accuracy {loaded_accuracy}")
